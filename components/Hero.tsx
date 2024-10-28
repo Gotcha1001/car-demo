@@ -17,12 +17,6 @@ const Hero = () => {
           Streamline your car rental experience with our effortless booking
           process.
         </p>
-
-        <CustomButton
-          title="Explore Cars"
-          containerStyles="bg-primary-blue text-white rounded-full mt-10"
-          handleClick={handleScroll}
-        />
       </div>
       <div className="hero__image-container">
         <motion.div

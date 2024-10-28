@@ -1,8 +1,10 @@
 "use client";
+
 import React, { useState } from "react";
 import SearchManufacturer from "./SearchManufacturer";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast"; // Import toast
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
   <button type="submit" className={`-ml-3 z-10 ${otherClasses}`}>
@@ -25,11 +27,20 @@ const SearchBar = ({ setManufacturer, setModel }) => {
     e.preventDefault();
 
     if (searchManufacturer === "" && searchModel === "") {
-      return alert("Please fill in the search bar");
+      return toast.error("Please fill in the search bar"); // Show error toast
     }
+
+    // Show loading toast
+    const toastId = toast.loading("Searching...");
 
     setModel(searchModel);
     setManufacturer(searchManufacturer);
+
+    // Simulate search delay (replace with your search logic)
+    setTimeout(() => {
+      toast.dismiss(toastId); // Dismiss loading toast
+      // Redirect or update the state based on your search results here if needed
+    }, 1000); // Adjust delay based on your search duration
   };
 
   return (

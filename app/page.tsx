@@ -4,6 +4,7 @@ import { fuels, yearsOfProduction } from "@/constants";
 import { fetchCars } from "@/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { RevealWrapper } from "next-reveal";
 
 export default function Home() {
   const [allCars, setAllCars] = useState([]);
@@ -20,7 +21,7 @@ export default function Home() {
   const [year, setYear] = useState(2022);
 
   //pagination state
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(12);
 
   const getCars = async () => {
     setLoading(true);
@@ -88,14 +89,26 @@ export default function Home() {
         </div>
         {allCars.length > 0 ? (
           <section>
-            <div className="home__cars-wrapper">
-              {allCars?.map((car, index) => (
-                <CarCard
-                  key={`${car.make}-${car.model}-${car.year}-${index}`}
-                  car={car}
-                />
-              ))}
-            </div>
+            <RevealWrapper
+              effect="fade"
+              duration={1000}
+              distance="20px"
+              delay={200}
+            >
+              <div className="home__cars-wrapper">
+                {allCars.map((car, index) => (
+                  <RevealWrapper
+                    key={`${car.make}-${car.model}-${car.year}-${index}`}
+                    effect="fade"
+                    duration={1000}
+                    distance="20px"
+                    delay={index * 150} // Increase delay for each car
+                  >
+                    <CarCard car={car} />
+                  </RevealWrapper>
+                ))}
+              </div>
+            </RevealWrapper>
 
             {loading && (
               <div className="mt-16 w-full flex-center">
